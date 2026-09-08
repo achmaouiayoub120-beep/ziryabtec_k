@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Mail, Award, Briefcase } from "lucide-react";
-import { formateurs } from "@/lib/formateurs";
+import { formateurs } from "@/lib/data";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Card, CardContent } from "@/components/ui/card";

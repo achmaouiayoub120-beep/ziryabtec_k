@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { formations, CategorieFormation } from "@/lib/formations";
-import { formateurs } from "@/lib/formateurs";
+import { formations, CategorieFormation } from "@/lib/data";
+import { formateurs } from "@/lib/data";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Badge } from "@/components/ui/badge";

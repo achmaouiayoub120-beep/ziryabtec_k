@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { formations } from "@/lib/formations";
+import { formations } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { FormationCard } from "@/components/formations/formation-card";
 

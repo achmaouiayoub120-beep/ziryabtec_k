@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { formations, CategorieFormation } from "@/lib/formations";
+import { formations, CategorieFormation } from "@/lib/data";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { FormationCard } from "@/components/formations/formation-card";

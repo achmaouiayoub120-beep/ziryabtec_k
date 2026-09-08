@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { partenaires } from "@/lib/partenaires";
+import { partenaires } from "@/lib/data";
 import { motion } from "framer-motion";
 
 export function PartenairesSection() {

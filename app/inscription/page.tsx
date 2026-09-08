@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { Eye, EyeOff, ArrowRight } from "lucide-react";
 import { Header } from "@/components/layout/header";
 import { Button } from "@/components/ui/button";
-import { formations } from "@/lib/formations";
+import { formations } from "@/lib/data";
 
 export default function InscriptionPage() {
   const [showPassword, setShowPassword] = useState(false);

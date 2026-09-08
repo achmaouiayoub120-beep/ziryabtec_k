@@ -4,7 +4,7 @@ import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Star } from "lucide-react";
-import { temoignages, Temoignage } from "@/lib/temoignages";
+import { temoignages, Temoignage } from "@/lib/data";
 import { Card, CardContent } from "@/components/ui/card";
 
 function TestimonialCard({ temoignage, isActive }: { temoignage: Temoignage; isActive: boolean }) {

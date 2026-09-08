@@ -58,7 +58,14 @@ export function Footer() {
         </div>
         
         <div className="border-t border-slate-100 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-400">
-          <p>© {new Date().getFullYear()} ZiryabTec. Tous droits réservés.</p>
+          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
+            <p>© {new Date().getFullYear()} ZiryabTec. Tous droits réservés.</p>
+            <span className="hidden sm:inline text-slate-200">•</span>
+            <p className="text-slate-400">
+              Conçu & Développé par{" "}
+              <span className="font-semibold text-foreground/70 tracking-tight">Kawter Fadel</span>
+            </p>
+          </div>
           <div className="flex gap-6">
             <Link href="/mentions-legales" className="hover:text-primary transition-colors interactive">Mentions Légales</Link>
             <Link href="/confidentialite" className="hover:text-primary transition-colors interactive">Politique de Confidentialité</Link>

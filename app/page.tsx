@@ -1,6 +1,6 @@
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-import { Hero } from "@/components/home/hero";
+import { HeroSection } from "@/components/home/hero";
 import { FormationsSection } from "@/components/home/formations";
 import { FeaturesSection } from "@/components/home/features";
 import { StatsSection } from "@/components/home/stats";
@@ -13,7 +13,7 @@ export default function Home() {
     <>
       <Header />
       <main className="flex flex-col min-h-screen pt-20">
-        <Hero />
+        <HeroSection />
         <FormationsSection />
         <FeaturesSection />
         <StatsSection />

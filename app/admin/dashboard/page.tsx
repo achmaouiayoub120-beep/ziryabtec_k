@@ -19,7 +19,7 @@ import {
   Search
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { formations } from "@/lib/formations";
+import { formations } from "@/lib/data";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 

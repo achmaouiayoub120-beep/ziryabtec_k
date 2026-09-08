@@ -22,17 +22,17 @@ export function Header() {
   const headerBackground = useTransform(
     scrollY,
     [0, 50],
-    ["rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 0.75)"]
+    ["rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 0.4)"]
   );
   const headerBorder = useTransform(
     scrollY,
     [0, 50],
-    ["rgba(226, 232, 240, 0)", "rgba(226, 232, 240, 0.8)"]
+    ["rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 0.6)"]
   );
   const headerShadow = useTransform(
     scrollY,
     [0, 50],
-    ["none", "0 10px 40px -10px rgba(37, 99, 235, 0.08)"]
+    ["none", "0 8px 30px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 1)"]
   );
 
   useEffect(() => {
@@ -49,9 +49,8 @@ export function Header() {
         backgroundColor: headerBackground,
         borderColor: headerBorder,
         boxShadow: headerShadow,
-        backdropFilter: "blur(16px)",
       }}
-      className="fixed top-0 left-0 right-0 z-50 border-b border-transparent transition-all duration-300"
+      className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300 ${isScrolled ? 'backdrop-blur-xl' : ''}`}
     >
       <div className="container mx-auto px-4 md:px-6 h-20 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 group">
@@ -72,22 +71,22 @@ export function Header() {
         </nav>
 
         <div className="hidden md:flex items-center gap-4">
-          <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-secondary/10 border border-secondary/20">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
+          <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-green-500/10 border border-green-500/20 backdrop-blur-md">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500"></span>
             </span>
-            <span className="text-xs font-mono font-medium text-secondary">
+            <span className="text-[10px] uppercase font-bold tracking-wider text-green-600">
               Inscriptions Ouvertes
             </span>
           </div>
           
-          <Button variant="ghost" size="sm" asChild>
+          <Button variant="ghost" size="sm" className="rounded-full hover:bg-slate-100/50 transition-colors" asChild>
             <Link href="/connexion">Connexion</Link>
           </Button>
-          <Button size="sm" asChild>
+          <Button size="sm" className="rounded-full shadow-[0_0_40px_-10px_rgba(37,99,235,0.4),inset_0_1px_0_rgba(255,255,255,0.3)] hover:scale-[1.02] transition-all" asChild>
             <Link href="/inscription">
-              S'inscrire <ArrowRight className="w-4 h-4 ml-1" />
+              S'inscrire <ArrowRight className="w-3.5 h-3.5 ml-1" />
             </Link>
           </Button>
         </div>
