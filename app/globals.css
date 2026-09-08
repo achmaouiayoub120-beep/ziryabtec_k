@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-space-grotesk);
+  --font-mono: var(--font-jetbrains-mono);
+
+  /* Elite Claire Palette */
+  --color-background: #F8FAFC;
+  --color-foreground: #0F172A;
+  --color-muted: #475569;
+  
+  --color-primary: #2563EB;
+  --color-primary-dark: #1D4ED8;
+  --color-secondary: #059669;
+
+  /* Categories */
+  --color-cat-cloud: #2563EB;
+  --color-cat-cyber: #059669;
+  --color-cat-dev: #4F46E5;
+  --color-cat-ia: #7C3AED;
+
+  /* Surfaces */
+  --color-surface: #FFFFFF;
+  --color-surface-glass: rgba(255, 255, 255, 0.75);
+
+  /* Shadows */
+  --shadow-glass: 0 10px 40px -10px rgba(37, 99, 235, 0.08);
+  --shadow-elevated: 0 20px 40px -10px rgba(37, 99, 235, 0.12);
+  --shadow-glow: 0 0 20px rgba(37, 99, 235, 0.3);
+
+  /* Radius */
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+}
+
+/* Base styles */
+@layer base {
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    color: var(--color-foreground);
+  }
+}
+
+/* Utility classes for specific UI elements */
+@layer utilities {
+  .glass-panel {
+    background-color: var(--color-surface-glass);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+  }
+
+  .text-gradient {
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-image: linear-gradient(to right, #2563EB, #7C5CFC);
+  }
+  
+  .bg-gradient-primary {
+    background-image: linear-gradient(to right, #2563EB, #4F46E5);
+  }
+}
