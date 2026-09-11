@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { Menu, X, ArrowRight } from "lucide-react";
 import Image from "next/image";
 
 /* ═══════════════════════════════════════════════════════
-   Custom easing curves 
+   Bespoke Animation Curves
    ═══════════════════════════════════════════════════════ */
 const EASE_OUT_EXPO = [0.16, 1, 0.3, 1] as const;
 
@@ -18,55 +18,13 @@ const navLinks = [
   { name: "Témoignages", href: "/#temoignages" },
 ];
 
-/* ═══════════════════════════════════════════════════════
-   Magnetic Nav Link
-   ═══════════════════════════════════════════════════════ */
-function MagneticNavLink({ href, children }: { href: string; children: React.ReactNode }) {
-  const ref = useRef<HTMLAnchorElement>(null);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const springX = useSpring(x, { stiffness: 150, damping: 15, mass: 0.1 });
-  const springY = useSpring(y, { stiffness: 150, damping: 15, mass: 0.1 });
-
-  const handleMouse = useCallback((e: React.MouseEvent) => {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    const dx = e.clientX - (rect.left + rect.width / 2);
-    const dy = e.clientY - (rect.top + rect.height / 2);
-    x.set(dx * 0.2);
-    y.set(dy * 0.2);
-  }, [x, y]);
-
-  const reset = useCallback(() => {
-    x.set(0);
-    y.set(0);
-  }, [x, y]);
-
-  return (
-    <Link href={href} passHref legacyBehavior>
-      <motion.a
-        ref={ref}
-        onMouseMove={handleMouse}
-        onMouseLeave={reset}
-        style={{ x: springX, y: springY }}
-        className="relative px-4 py-2 text-[14px] font-medium text-foreground/70 hover:text-foreground transition-colors duration-300 group"
-      >
-        <span className="relative z-10">{children}</span>
-        {/* Hover pill background */}
-        <span className="absolute inset-0 rounded-full bg-slate-100/0 group-hover:bg-slate-100/80 transition-colors duration-300 -z-0" />
-      </motion.a>
-    </Link>
-  );
-}
-
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { scrollY } = useScroll();
   
   // Transform values for the floating capsule effect based on scroll
   const headerY = useTransform(scrollY, [0, 100], [20, 12]);
-  const headerWidth = useTransform(scrollY, [0, 100], ["100%", "92%"]);
-  const headerPadding = useTransform(scrollY, [0, 100], ["0px", "0px"]);
+  const headerWidth = useTransform(scrollY, [0, 100], ["100%", "95%"]);
   const headerBg = useTransform(scrollY, [0, 100], ["rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 0.75)"]);
   const headerBorder = useTransform(scrollY, [0, 100], ["rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 0.6)"]);
   const headerShadow = useTransform(scrollY, [0, 100], [
@@ -93,35 +51,42 @@ export function Header() {
           borderColor: headerBorder,
           boxShadow: headerShadow,
         }}
-        className="max-w-6xl mx-auto border backdrop-blur-2xl rounded-full pointer-events-auto transition-[background-color,box-shadow,border-color] duration-500"
+        className="max-w-7xl mx-auto border backdrop-blur-2xl rounded-full pointer-events-auto transition-[background-color,box-shadow,border-color] duration-500"
       >
-        <div className="px-6 h-16 flex items-center justify-between">
+        {/* STRICT FLEXBOX LAYOUT: No absolute positioning overlapping */}
+        <div className="px-6 h-[72px] flex items-center justify-between w-full">
           
-          {/* Logo */}
-          <Link href="/" className="flex items-center group flex-shrink-0">
+          {/* 1. Logo (Left) */}
+          <Link href="/" className="flex items-center group shrink-0">
             <Image 
               src="/logo-transparent.png" 
               alt="ZiryabTec" 
-              width={120} 
-              height={36} 
+              width={130} 
+              height={40} 
               className="object-contain group-hover:opacity-80 transition-opacity duration-300" 
               priority 
             />
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-1 absolute left-1/2 -translate-x-1/2">
+          {/* 2. Nav Links (Center) */}
+          <nav className="hidden lg:flex items-center gap-8 shrink-0">
             {navLinks.map((link) => (
-              <MagneticNavLink key={link.name} href={link.href}>
+              <Link
+                key={link.name}
+                href={link.href}
+                className="text-[14px] font-medium text-foreground/70 hover:text-foreground transition-colors duration-300 relative group"
+              >
                 {link.name}
-              </MagneticNavLink>
+                {/* Minimalist underline effect on hover */}
+                <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-foreground transition-all duration-300 group-hover:w-full rounded-full" />
+              </Link>
             ))}
           </nav>
 
-          {/* Right Actions */}
-          <div className="hidden md:flex items-center gap-3 flex-shrink-0">
+          {/* 3. Actions (Right) */}
+          <div className="hidden lg:flex items-center gap-4 shrink-0">
             {/* Status Badge */}
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/10 border border-green-500/20 mr-2">
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/10 border border-green-500/20">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
@@ -133,18 +98,16 @@ export function Header() {
             
             <Link 
               href="/connexion"
-              className="text-[14px] font-semibold text-foreground/80 hover:text-foreground px-4 py-2 transition-colors"
+              className="text-[14px] font-semibold text-foreground/80 hover:text-foreground px-2 py-2 transition-colors"
             >
               Connexion
             </Link>
 
             <Link 
               href="/inscription"
-              className="relative h-10 px-6 rounded-full bg-gradient-to-r from-primary to-secondary text-white font-semibold text-[14px] overflow-hidden group flex items-center justify-center shadow-glow hover:shadow-[0_8px_24px_-4px_rgba(59,130,246,0.4)] transition-all duration-300"
+              className="relative h-10 px-6 rounded-full bg-foreground text-white font-semibold text-[14px] overflow-hidden group flex items-center justify-center shadow-elevated hover:shadow-[0_8px_24px_-4px_rgba(0,0,0,0.3)] transition-all duration-300"
             >
-              {/* Animated gradient slide on hover */}
-              <span className="absolute inset-0 bg-gradient-to-r from-primary via-secondary to-primary bg-[length:200%_auto] opacity-0 group-hover:opacity-100 transition-opacity duration-500 group-hover:animate-[gradient-slide_2s_linear_infinite]" />
-              <span className="absolute inset-x-0 top-0 h-px bg-white/30" />
+              <span className="absolute inset-x-0 top-0 h-px bg-white/20" />
               <span className="relative z-10 flex items-center gap-1.5">
                 S'inscrire
                 <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
@@ -154,11 +117,12 @@ export function Header() {
 
           {/* Mobile menu button */}
           <button
-            className="md:hidden p-2 text-foreground/70 hover:text-foreground transition-colors"
+            className="lg:hidden p-2 text-foreground/70 hover:text-foreground transition-colors shrink-0"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
+
         </div>
       </motion.div>
 
@@ -169,7 +133,7 @@ export function Header() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: -20, scale: 0.95 }}
           transition={{ duration: 0.4, ease: EASE_OUT_EXPO }}
-          className="md:hidden absolute top-[85px] left-4 right-4 bg-white/80 backdrop-blur-3xl border border-white/60 shadow-elevated p-6 rounded-3xl flex flex-col gap-5 pointer-events-auto"
+          className="lg:hidden absolute top-[95px] left-4 right-4 bg-white/90 backdrop-blur-3xl border border-white/60 shadow-elevated p-6 rounded-3xl flex flex-col gap-5 pointer-events-auto"
         >
           {navLinks.map((link) => (
             <Link
@@ -192,7 +156,7 @@ export function Header() {
             </Link>
             <Link 
               href="/inscription" 
-              className="w-full h-12 flex items-center justify-center rounded-xl bg-primary text-white font-semibold shadow-glow"
+              className="w-full h-12 flex items-center justify-center rounded-xl bg-foreground text-white font-semibold shadow-glow"
               onClick={() => setMobileMenuOpen(false)}
             >
               S'inscrire
